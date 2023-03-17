@@ -1,28 +1,33 @@
 const User=require('../models/user');
 
-module.exports.profile = async function (req, res) {
- if(req.cookies.user_id){
-const data = await User.findById(req.cookies.user_id);
-if(data){
-return res.render('user',{
-    title:"User Profile",
-    user:data,
-})
-}else{
-return res.redirect('/users/sign-in');
+// module.exports.profile = function (req, res) {
+//   return res.render('user', {
+//         title: 'User Profile'
+//     })
+// };
+
+module.exports.profile = function(req, res) {
+    
+  return res.render('user',{
+      title: "user Page"
+  });
 }
- }else{
-return res.redirect('/users/sign-in');
- }
-};
 
 module.exports.signUp = (req, res) => {
+ if (req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+
   return res.render("user_sign_up", {
     title: "Codeial | signUp",
   });
 };
 
 module.exports.signIn = (req, res) => {
+if (req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+
   return res.render("user_sign_in", {
     title: "Codeial | signIn",
   });
@@ -49,25 +54,17 @@ if(!data){
   };
 
 // signIn and create a session for a user
-  module.exports.createSession = async(req, res) => {
-    //    find the user
-// steps to authenticate
-const data=await User.findOne({email:req.body.email})
-    // handle user found
-if(data){
-// handle password which do not match
-if(data.password!=req.body.password){
- return res.redirect('back');
-}
-// handle session creation
-res.cookie('user_id',data.id);
-return res.redirect('/users/profile');
-}else{
- // handle user not found
- return res.redirect('back');
-}
-    
-   
+  module.exports.createSession = (req, res) => {
+   return res.redirect('/');
       };  
 
+// logout function
+  module.exports.destroySession = async(req, res,next) => {
+    req.logout(function(err) {
+      if (err) { 
+        return next(err); 
+        }
+      res.redirect('/');
+    });
+  };  
 
