@@ -1,3 +1,36 @@
+<link rel="stylesheet" href="/css/footer.css">
 <footer>
-    Page Footer
+<div class="footer">
+    <div class="brand_name">
+        <h2>
+hey! this is from coding ninga
+        </h2>
+    </div>
+    <div class="menu">
+        <ul>
+            <% if(locals.user){ %>
+                <li> 
+                    <a href="/users/profile">
+                        <%= locals.user.name %>
+                    </a>
+               </li>
+               
+                <li>
+                    <a href="/users/sign-out">Sign Out</a>
+                </li>
+        
+                <%}else{%>
+                    <li>  
+                        <a href="/users/sign-in">Sign In</a>
+                    </li>
+        
+                    <li>  
+                        <a href="/users/sign-up">Sign up</a>
+                    </li>
+                <%}%>
+            
+            
+        </ul> 
+    </div>
+</div>
 </footer>

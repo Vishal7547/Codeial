@@ -1,0 +1,32 @@
+.nav{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    height:10vh;
+    background-color: rgb(53, 172, 132);
+}
+.logo h2{
+    color:white;
+    font-weight: 700;
+}
+
+.list ul{
+    list-style-type: none;
+}
+ul li{
+    display: inline-block;
+    margin: 0 10px;
+}
+ul li a{
+    text-decoration: none;
+    color:white;
+    font-size:large;
+    text-transform: capitalize;
+    font-weight: 500;
+    transition: all 0.9s;
+    padding: 3px 0;
+}
+ul li a:hover{
+  
+    border-bottom: 1px solid white;
+}
