@@ -6,6 +6,7 @@ console.log('router is loaded');
 router.get('/',home_controller.home)
 router.use('/users',require('./users'));
 router.use('/posts',require('./post'));
+router.use('/comments',require('./comment'));
 // router.use('/users',require('./postImg'));
 
 // for any further routers,access from here
