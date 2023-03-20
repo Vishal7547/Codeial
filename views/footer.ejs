@@ -10,7 +10,7 @@ hey! this is from coding ninga
         <ul>
             <% if(locals.user){ %>
                 <li> 
-                    <a href="/users/profile">
+                    <a href="/users/profile/<%=locals.user.id%>">
                         <%= locals.user.name %>
                     </a>
                </li>

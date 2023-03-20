@@ -1,5 +1,5 @@
-const Post=require('../models/post')
-
+const Post=require('../models/post');
+const User=require('../models/user');
 module.exports.home=async function(req,res){
     // console.log(req.cookies);
     // res.cookie("user_id",56)
@@ -15,10 +15,14 @@ const data=await Post.find({})
     }
 })
 .exec();
-console.log('data of post : ',data);
+// find all the user
+const userData=await User.find();
+
+// console.log('data of post : ',data);
 return res.render('home',{
     title:"home",
     posts:data,
+    all_user:userData,
 });
 // return res.json({
 //     data

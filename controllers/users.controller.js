@@ -6,11 +6,21 @@ const User=require('../models/user');
 //     })
 // };
 
-module.exports.profile = function(req, res) {
-    
+module.exports.profile = async function(req, res) {
+   const data= await User.findById(req.params.id);
   return res.render('user',{
-      title: "user Page"
+      title: "user Page",
+      profile_user:data,
   });
+}
+
+module.exports.update=async (req,res)=>{
+if(req.user.id==req.params.id){
+ const data= await User.findByIdAndUpdate(req.params.id,req.body);
+return res.redirect('back');
+}else{
+  return res.status(401).send('unauthorized');
+}
 }
 
 module.exports.signUp = (req, res) => {

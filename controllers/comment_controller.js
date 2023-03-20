@@ -15,3 +15,16 @@ if(data){
    res.redirect('/');
 }
 }
+
+module.exports.destroy=async(req,res)=>{
+const data=await Comment.findById(req.params.id);
+if(data.user==req.user.id){
+  let postId=data.post;
+  await Comment.findByIdAndDelete(req.params.id);  
+ await Post.findByIdAndUpdate(postId,{$pull: {comments:req.params.id}});
+ return res.redirect('back');
+}else{
+  return res.redirect('back');
+}
+
+}

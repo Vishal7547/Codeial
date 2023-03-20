@@ -2,3 +2,29 @@
     font-size: 4rem;
    
 }
+
+#deletepost{
+    color:black;
+    text-decoration: none;
+    margin: 0 4px;
+}
+
+#post_list,#comments_list{
+    display: block;
+    margin: 5px;
+}
+
+#home_container{
+    display: flex;
+    #feed-post{
+        width:70%;
+        padding: 10px;
+    }
+
+    #user_friends{
+       width:30%;
+       padding: 10px;
+       border-left:1px solid lightgrey; 
+       height:100%;
+    }
+}
