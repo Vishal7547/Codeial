@@ -14,7 +14,7 @@ const data=await Post.find({})
         path:'user',
     }
 })
-.exec();
+// .exec();
 // find all the user
 const userData=await User.find();
 
