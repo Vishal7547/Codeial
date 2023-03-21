@@ -13,6 +13,8 @@ const scssMiddleware=require('node-sass-middleware');
 const port=8000;
 const cookieParser=require('cookie-parser');
 const User=require('./models/user');
+const flash=require('connect-flash');
+const customMiddleWare=require('./config/middleware')
 
 
 // scss middleware use
@@ -30,6 +32,8 @@ app.use(scssMiddleware({
 app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(express.static('./assets'));
+// make the upload path available to browser
+app.use('/uploads',express.static(__dirname+'/uploads'))
 
 app.use(expressLayouts);
 // extract style and scripts from sub pages into the layout
@@ -73,6 +77,9 @@ app.use(passport.session());
 
 
 app.use(passport.setAuthenticatedUser);
+// flash-message
+app.use(flash());
+app.use(customMiddleWare.setFlash);
 
 // use express router
 app.use('/' , require('./routes'));

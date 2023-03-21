@@ -1,4 +1,6 @@
 const User=require('../models/user');
+const fs=require('fs');
+const path=require('path');
 
 // module.exports.profile = function (req, res) {
 //   return res.render('user', {
@@ -16,9 +18,33 @@ module.exports.profile = async function(req, res) {
 
 module.exports.update=async (req,res)=>{
 if(req.user.id==req.params.id){
- const data= await User.findByIdAndUpdate(req.params.id,req.body);
+try{
+  // const data= await User.findByIdAndUpdate(req.params.id,req.body);
+ let user=await User.findById(req.params.id);
+ User.uploadedAvatar(req,res,(e)=>{
+  if(e){
+    console.log("**multer error", e);
+  }
+  user.name=req.body.name;
+  user.email=req.body.email;
+if(req.file){
+  if(user.avatar){
+fs.unlinkSync(path.join(__dirname,'..',user.avatar));
+  }
+  // this is saving the path of the uploaded file into the avatar field in the user
+  user.avatar =User.avatarPath+'/'+req.file.filename;
+}
+user.save();
+  // console.log(req.file);
+   return res.redirect('back');
+ });
+ 
+}catch(e){
+  req.flash('error',e);
 return res.redirect('back');
+}
 }else{
+  req.flash('error','unauthorized');
   return res.status(401).send('unauthorized');
 }
 }
@@ -65,7 +91,8 @@ if(!data){
 
 // signIn and create a session for a user
   module.exports.createSession = (req, res) => {
-   return res.redirect('/');
+  req.flash('success','logged in successful');
+    return res.redirect('/');
       };  
 
 // logout function
@@ -74,7 +101,8 @@ if(!data){
       if (err) { 
         return next(err); 
         }
-      res.redirect('/');
+    req.flash('success','you have logged out');
+    return res.redirect('/');
     });
   };  
 
