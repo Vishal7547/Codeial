@@ -7,6 +7,7 @@ const db = require('./config/mongoose');
 const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
+const passportJwt=require('./config/passport-jwt-strategy');
 const mongoStore=require('connect-mongo');
 const scssMiddleware=require('node-sass-middleware');
 // port no
